@@ -13,6 +13,7 @@ if CLIENT then
 			self.Multiplier = mat:GetFloat("$DEM_Multiplier") or 1
 			self.ClampMin = mat:GetVector("$DEM_ClampMin") or default0
 			self.ClampMax = mat:GetVector("$DEM_ClampMax")
+			self.Color = (mat:GetVector("$DEM_Color") or mat:GetVector("$color")) or defaultTint
         end,
         bind = function(self,mat,ent)
             if (!IsValid(ent)) then return end
@@ -21,15 +22,16 @@ if CLIENT then
 			local mult = self.Multiplier
 			local clampMin = self.ClampMin
 			local clampMax = self.ClampMax
+			local tint = self.TintScale *self.Color
 			local luminance = render_GetLightColor(ent:GetPos() +ent:OBBCenter()) *mult
-			finalResult = (self.TintScale *luminance) *mult
+			finalResult = (tint *luminance) *mult
 			if clampMax then
 				finalResult.x = math_Clamp(finalResult.x,clampMin.x,clampMax.x)
 				finalResult.y = math_Clamp(finalResult.y,clampMin.y,clampMax.y)
 				finalResult.z = math_Clamp(finalResult.z,clampMin.z,clampMax.z)
 			end
 
-			-- print(finalResult)
+			-- print(tint,self.Color,finalResult)
 			mat:SetVector(self.Result,finalResult)
         end
     })
@@ -44,6 +46,7 @@ end
 	"$DEM_Multiplier" 			"1" // Multiplies the output, should change this based on other $envmap settings that alter the strength/color
 	"$DEM_ClampMin" 			"[0 0 0]" // Optional, clamps the output to a minimum value
 	"$DEM_ClampMax" 			"[1 1 1]" // Optional, clamps the output to a maximum value
+	"$DEM_Color" 				"[1 1 1]" // Optional, changes the envmaptint, otherwise it will use $color (or white) by default
 
 	"Proxies" 
 	{
