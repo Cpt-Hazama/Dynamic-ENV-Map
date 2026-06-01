@@ -1,0 +1,22 @@
+"VertexLitGeneric"
+{
+	"$basetexture" 				"vgui/white"
+	"$bumpmap"					"vj_base/flat"
+	"$phongexponenttexture"		"vj_base/exponent"
+
+	"$nodecal"					"1"
+    "$nocull"                   "1"
+	"$alphatest"				"1"
+	"$allowalphatocoverage"		"1"
+
+	"$phong"                     "1"
+	"$phongboost"                "4"
+	"$phongexponent"             "80"
+	"$phongfresnelranges"        "[0.15 0.545 0.115]"
+	"$phongdisablehalflambert"   "1"
+	"$phongalbedotint"           "1"
+
+	"$rimlight"					"1"
+	"$rimlightexponent"			"5000"
+	"$rimlightboost"            "10"
+}
